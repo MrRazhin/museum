@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen bg-[#fecd8c]">
     <div class="flex-grow max-w-full flex flex-col">
-      <div class="bg-[#011418] pb-12 rounded-b-lg">
+      <div class="bg-[#011418] py-12 rounded-b-[2.5rem]">
         <div
           class="flex h-16 px-12 sm:pr-12 sm:pl-8 items-center max-w-[75rem] w-full mx-auto"
         >
