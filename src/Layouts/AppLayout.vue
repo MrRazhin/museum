@@ -4,10 +4,10 @@
       class="flex-grow max-w-full flex flex-col justify-between h-full min-h-screen"
     >
       <div
-        class="bg-[#011418] py-12 rounded-b-[2.5rem] bg-cover bg-center"
-        style="background-image: url('')"
+        class="bg-[#011418] pb-12 pt-6 rounded-b-[2.5rem] bg-cover bg-center"
+        :style="`background-image: url('${headerImage}');`"
       >
-        <div class="px-12 sm:pr-12 sm:pl-8 max-w-[75rem] w-full mx-auto">
+        <div class="md:px-12 pr-12 pl-8 max-w-[75rem] w-full mx-auto">
           <div class="flex items-center justify-between">
             <div class="flex items-center md:gap-10 w-full">
               <div class="relative">
@@ -26,22 +26,22 @@
                   <li
                     class="text-white w-fit text-lg relative font-bold line cursor-pointer"
                   >
-                    VISIT
+                    <router-link to="/Visit"> ПОСЕТИТЬ </router-link>
                   </li>
                   <li
                     class="text-white w-fit text-lg relative font-bold line cursor-pointer"
                   >
-                    SEE & DO
+                    <router-link to="/Exhibition"> ВЫСТАВКИ </router-link>
                   </li>
                   <li
                     class="text-white w-fit text-lg relative font-bold line cursor-pointer"
                   >
-                    COLLECTION
+                    КОЛЛЕКЦИЯ
                   </li>
                   <li
                     class="text-white w-fit text-lg relative font-bold line cursor-pointer"
                   >
-                    ABOUT US
+                    О НАС
                   </li>
                 </ul>
               </div>
@@ -49,13 +49,7 @@
             <div
               class="flex items-center space-x-4 max-w-[250px] w-full justify-end"
             >
-              <div
-                class="rounded-xl bg-[#FECD8C] hidden hover:bg-[#FFB655] p-3 md:inline-flex cursor-pointer"
-              >
-                <div class="uppercase text-[16px] font-bold text-[#011418]">
-                  Order Tickets
-                </div>
-              </div>
+              <JetButton class="hidden md:block">Заказать билеты</JetButton>
               <div class="">
                 <button
                   type="button"
@@ -90,22 +84,30 @@
               </div>
             </div>
           </div>
-
-          <div class="text-6xl text-white font-bol pl-4 pt-12 uppercase">
-            Tickets & opening hours
+          <div class="pl-4 pt-12" :class="{ '!pt-[25rem]': headerImage }">
+            <div class="md:text-6xl text-3xl text-white font-bold uppercase">
+              {{ pageTitle }}
+            </div>
+            <div
+              class="md:text-lg text-base text-white mt-2"
+              :class="{ 'text-2xl font-bold': !actionButton }"
+              v-if="pageSubTitle"
+            >
+              {{ pageSubTitle }}
+            </div>
+            <JetButton v-if="actionButton" class="mt-4"
+              >{{ actionButton.title }}
+            </JetButton>
           </div>
         </div>
       </div>
 
-      <main :class="mainClass" class="px-4 sm:px-0 h-full">
-        <div
-          :class="bodyClass"
-          class="py-10 sm:px-6 lg:px-12 max-w-[75rem] mx-auto"
-        >
+      <main :class="mainClass" class="">
+        <div :class="bodyClass" class="">
           <slot />
         </div>
       </main>
-      <div class="bg-[#011418] py-12">
+      <footer class="bg-[#011418] py-12">
         <div class="py-10 sm:px-6 lg:px-12 max-w-[75rem] mx-auto">
           <div class="flex flex-1 flex-col">
             <div
@@ -207,14 +209,39 @@
             </div>
           </div>
         </div>
-      </div>
+      </footer>
       <div id="dropdown" />
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+import JetButton from "@/components/JetButton.vue";
+export default {
+  components: {
+    JetButton,
+  },
+  props: {
+    bodyClass: {
+      default: "py-10 sm:px-6 lg:px-12 max-w-[75rem] mx-auto overflow-hidden",
+    },
+    mainClass: {
+      default: "px-4 sm:px-0 h-full",
+    },
+    pageTitle: {
+      default: "Test title",
+    },
+    pageSubTitle: {
+      default: "Test subtitle",
+    },
+    headerImage: {
+      default: "",
+    },
+    actionButton: {
+      default: "",
+    },
+  },
+};
 </script>
 
 <style>

@@ -1,17 +1,16 @@
 <template>
-  <div class="w-15 font-bold">
-    Test
-  </div>
-  <Modal />
+  <AppLayout>
+    <div class="w-15 font-bold">Test</div>
+  </AppLayout>
 </template>
 
 <script>
-import Modal from "./Modal.vue";
+import AppLayout from "@/Layouts/AppLayout.vue";
 
 export default {
   name: "HelloWorld",
   components: {
-    Modal,
+    AppLayout,
   },
   props: {
     msg: String,
