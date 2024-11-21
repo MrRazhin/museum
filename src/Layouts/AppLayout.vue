@@ -1,11 +1,15 @@
 <template>
-  <div class="min-h-screen h-full bg-[#fecd8c]">
+  <div
+    :class="{ 'overflow-hidden': showingNavigationDropdown }"
+    class="min-h-screen h-full bg-[#fecd8c]"
+  >
     <div
       class="flex-grow max-w-full flex flex-col justify-between h-full min-h-screen"
     >
       <div
         class="bg-[#011418] pb-12 pt-6 rounded-b-[2.5rem] bg-cover bg-center"
         :style="`background-image: url('${headerImage}');`"
+        :class="{ '!bg-[#011418] !bg-none': showingNavigationDropdown }"
       >
         <div class="md:px-12 pr-12 pl-8 max-w-[75rem] w-full mx-auto">
           <div class="flex items-center justify-between">
@@ -50,7 +54,11 @@
               class="flex items-center space-x-4 max-w-[250px] w-full justify-end"
             >
               <JetButton class="hidden md:block">Заказать билеты</JetButton>
-              <div class="">
+              <div
+                v-if="!showingNavigationDropdown"
+                class="md:hidden"
+                @click="toggleOverflow"
+              >
                 <button
                   type="button"
                   class="group text-white transition-all flex justify-center items-center aspect-square duration-short rounded-none hover:rounded-none disabled:rounded-none bg-transparent hover:bg-transparent disabled:bg-transparent text-on-image hover:text-on-image disabled:text-on-image border-transparent hover:border-transparent disabled:border-transparent opacity-[var(--mp-icon-button--opacity--default)] hover:opacity-[var(--mp-icon-button--opacity--hover)] disabled:opacity-[var(--mp-icon-button--opacity--disabled)] border-[length:var(--mp-icon-button--border-width)] w-[var(--mp-icon-button--size)] lg:w-[var(--mp-icon-button--size--desktop)] z-navigation-header"
@@ -82,6 +90,42 @@
                   </svg>
                 </button>
               </div>
+              <div v-else @click="toggleOverflow">
+                <div
+                  class="svw-[var(--mp-box--width)] lg:svw-[var(--mp-box--width--desktop)]"
+                >
+                  <button
+                    type="button"
+                    class="group transition-all flex justify-center items-center aspect-square duration-short rounded-none hover:rounded-none disabled:rounded-none bg-transparent hover:bg-transparent disabled:bg-transparent text-on-image hover:text-on-image disabled:text-on-image border-transparent hover:border-transparent disabled:border-transparent opacity-[var(--mp-icon-button--opacity--default)] hover:opacity-[var(--mp-icon-button--opacity--hover)] disabled:opacity-[var(--mp-icon-button--opacity--disabled)] border-[length:var(--mp-icon-button--border-width)] w-[var(--mp-icon-button--size)] lg:w-[var(--mp-icon-button--size--desktop)]"
+                    aria-label="Close menu"
+                    style="
+                      --mp-icon-button--opacity--default: 1;
+                      --mp-icon-button--opacity--hover: 1;
+                      --mp-icon-button--opacity--disabled: 0.5;
+                      --mp-icon-button--border-width: 0rem;
+                      --mp-icon-button--size: 2.5rem;
+                      --mp-icon-button--size--desktop: 2.5rem;
+                      --mp-icon-button--icon-size: 1.75rem;
+                      --mp-icon-button--icon-size--desktop: 1.75rem;
+                      --mp-icon-button--icon-scale--default: 1;
+                      --mp-icon-button--icon-scale--hover: 1.1;
+                      --mp-icon-button--icon-scale--disabled: 1;
+                    "
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 32 32"
+                      class="aspect-square text-white w-[var(--mp-icon-button--icon-size)] lg:w-[var(--mp-icon-button--icon-size--desktop)] scale-[var(--mp-icon-button--icon-scale--default)] group-hover:scale-[var(--mp-icon-button--icon-scale--hover)] group-disabled:scale-[var(--mp-icon-button--icon-scale--disabled)] transition-transform ease-out duration-short"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M.67.67a2.286 2.286 0 0 1 3.232 0L16 12.767 28.098.668a2.286 2.286 0 0 1 3.233 3.233L19.233 16 31.33 28.098a2.286 2.286 0 1 1-3.233 3.233L16 19.233 3.902 31.33a2.286 2.286 0 1 1-3.233-3.233L12.767 16 .67 3.902a2.286 2.286 0 0 1 0-3.233Z"
+                      ></path>
+                    </svg>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
           <div class="pl-4 pt-12" :class="{ '!pt-[25rem]': headerImage }">
@@ -98,6 +142,67 @@
             <JetButton v-if="actionButton" class="mt-4"
               >{{ actionButton.title }}
             </JetButton>
+          </div>
+        </div>
+        <!-- Responsive Navigation Menu -->
+        <div
+          :class="{
+            block: showingNavigationDropdown,
+            hidden: !showingNavigationDropdown,
+          }"
+          class="sm:hidden h-screen overflow-y-scroll pb-16 print:hidden absolute w-full bg-[#011418] top-[170px] z-[51]"
+        >
+          <!-- Responsive Settings Options -->
+          <div class="w-full mx-auto">
+            <div>
+              <ul class="items-start flex flex-col gap-5 px-12">
+                <li
+                  class="text-white w-fit text-lg relative font-bold line cursor-pointer"
+                >
+                  <router-link to="/Visit"> ПОСЕТИТЬ </router-link>
+                </li>
+                <li
+                  class="text-white w-fit text-lg relative font-bold line cursor-pointer"
+                >
+                  <router-link to="/Exhibition"> ВЫСТАВКИ </router-link>
+                </li>
+                <li
+                  class="text-white w-fit text-lg relative font-bold line cursor-pointer"
+                >
+                  КОЛЛЕКЦИЯ
+                </li>
+                <li
+                  class="text-white w-fit text-lg relative font-bold line cursor-pointer"
+                >
+                  О НАС
+                </li>
+                <li
+                  class="text-white w-full text-lg relative font-bold line cursor-pointer"
+                >
+                  <div class="p-4 border-2 border-[#fecd8c] rounded-3xl">
+                    <div class="flex flex-col gap-1">
+                      <h2 class="uppercase font-bold text-white text-2xl">
+                        Музей Кирилла Ражина
+                      </h2>
+                      <div class="flex flex-col items-start">
+                        <p class="text-white text-xl mb-2">
+                          ул. Вдохновения, д. 42 г. Санкт-Петербург, Россия
+                          индекс 191186
+                        </p>
+                        <p class="text-white text-xl mb-2">
+                          Открыто со вторника по воскресенье с 11:00 до 17:00.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li
+                  class="text-white w-full text-lg relative font-bold line cursor-pointer"
+                >
+                  <JetButton class="w-full">Заказать билеты</JetButton>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -239,6 +344,21 @@ export default {
     },
     actionButton: {
       default: "",
+    },
+  },
+  data() {
+    return {
+      showingNavigationDropdown: false,
+    };
+  },
+  methods: {
+    toggleOverflow() {
+      this.showingNavigationDropdown = !this.showingNavigationDropdown;
+      if (this.showingNavigationDropdown) {
+        document.body.classList.add("overflow-hidden");
+      } else {
+        document.body.classList.remove("overflow-hidden");
+      }
     },
   },
 };
