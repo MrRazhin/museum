@@ -1,8 +1,10 @@
 <template>
   <div
+    :class="bodyClass"
     class="w-full relative md:h-[600px] h-[420px] overflow-hidden rounded-3xl"
   >
     <div
+      :class="bodyClass"
       class="bg-cover bg-center md:h-[600px] h-[420px] cursor-pointer rounded-3xl overflow-hidden duration-500 hover:scale-110 transform transition"
       :style="`background-image: url('${image}');`"
     ></div>
@@ -39,6 +41,9 @@ export default {
       default: "",
     },
     type: {
+      default: "",
+    },
+    bodyClass: {
       default: "",
     },
   },

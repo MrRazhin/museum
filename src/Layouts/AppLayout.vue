@@ -11,7 +11,7 @@
         :style="`background-image: url('${headerImage}');`"
         :class="{ '!bg-[#011418] !bg-none': showingNavigationDropdown }"
       >
-        <div class="md:px-12 pr-12 pl-8 max-w-[75rem] w-full mx-auto">
+        <div class="px-8 md:px-12 max-w-[75rem] w-full mx-auto">
           <div class="flex items-center justify-between">
             <div class="flex items-center md:gap-10 w-full">
               <div class="relative">
@@ -40,7 +40,7 @@
                   <li
                     class="text-white w-fit text-lg relative font-bold line cursor-pointer"
                   >
-                    КОЛЛЕКЦИЯ
+                    <router-link to="/Collection"> КОЛЛЕКЦИЯ </router-link>
                   </li>
                   <li
                     class="text-white w-fit text-lg relative font-bold line cursor-pointer"
@@ -128,21 +128,23 @@
               </div>
             </div>
           </div>
-          <div class="pl-4 pt-12" :class="{ '!pt-[25rem]': headerImage }">
-            <div class="md:text-6xl text-3xl text-white font-bold uppercase">
-              {{ pageTitle }}
+          <slot name="headerContent">
+            <div class="pl-4 pt-12" :class="{ '!pt-[25rem]': headerImage }">
+              <div class="md:text-6xl text-3xl text-white font-bold uppercase">
+                {{ pageTitle }}
+              </div>
+              <div
+                class="md:text-lg text-base text-white mt-2"
+                :class="{ 'text-2xl font-bold': !actionButton }"
+                v-if="pageSubTitle"
+              >
+                {{ pageSubTitle }}
+              </div>
+              <JetButton v-if="actionButton" class="mt-4"
+                >{{ actionButton.title }}
+              </JetButton>
             </div>
-            <div
-              class="md:text-lg text-base text-white mt-2"
-              :class="{ 'text-2xl font-bold': !actionButton }"
-              v-if="pageSubTitle"
-            >
-              {{ pageSubTitle }}
-            </div>
-            <JetButton v-if="actionButton" class="mt-4"
-              >{{ actionButton.title }}
-            </JetButton>
-          </div>
+          </slot>
         </div>
         <!-- Responsive Navigation Menu -->
         <div
@@ -169,7 +171,7 @@
                 <li
                   class="text-white w-fit text-lg relative font-bold line cursor-pointer"
                 >
-                  КОЛЛЕКЦИЯ
+                  <router-link to="/Collection"> КОЛЛЕКЦИЯ </router-link>
                 </li>
                 <li
                   class="text-white w-fit text-lg relative font-bold line cursor-pointer"
