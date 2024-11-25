@@ -19,10 +19,16 @@ class PaintingController {
     }
   }
   async getAll(req, res) {
-     const painting = await Painting.findAll();
-     return res.json(painting);
+    const painting = await Painting.findAll();
+    return res.json(painting);
   }
-  async getOne(req, res) {}
+  async getOne(req, res) {
+    const { id } = req.params;
+    const painting = await Painting.findOne({
+      where: { id },
+    });
+    return res.json(painting);
+  }
 }
 
 module.exports = new PaintingController();

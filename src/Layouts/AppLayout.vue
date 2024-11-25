@@ -53,7 +53,30 @@
             <div
               class="flex items-center space-x-4 max-w-[250px] w-full justify-end"
             >
-              <JetButton class="hidden md:block">Заказать билеты</JetButton>
+              <div
+                class="text-[#fecd8c] cursor-pointer hover:text-[#FFB655]"
+                @click="$router.push('/Account')"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="h-12 w-12"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
+                  />
+                </svg>
+              </div>
+              <JetButton
+                @click="$router.push('/Tickets')"
+                class="hidden md:block"
+                >Заказать билеты</JetButton
+              >
               <div
                 v-if="!showingNavigationDropdown"
                 class="md:hidden"
@@ -129,7 +152,7 @@
             </div>
           </div>
           <slot name="headerContent">
-            <div class="pl-4 pt-12" :class="{ '!pt-[25rem]': headerImage }">
+            <div class="pl-4 pt-12" :class="{ '!pt-[16rem]': headerImage }">
               <div class="md:text-6xl text-3xl text-white font-bold uppercase">
                 {{ pageTitle }}
               </div>
@@ -336,10 +359,10 @@ export default {
       default: "px-4 sm:px-0 h-full",
     },
     pageTitle: {
-      default: "Test title",
+      default: "",
     },
     pageSubTitle: {
-      default: "Test subtitle",
+      default: "",
     },
     headerImage: {
       default: "",
@@ -376,7 +399,19 @@ export default {
   transition: width 0.3s;
   position: absolute;
   left: 0;
-  bottom: -2px; /* Позиционируем линию под элементом */
+  bottom: -2px;
+}
+
+.this_page {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: white;
+  transition: width 0.3s;
+  position: absolute;
+  left: 0;
+  bottom: -2px;
 }
 
 .line:hover::after {

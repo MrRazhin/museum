@@ -2,7 +2,8 @@
   <AppLayout>
     <template #headerContent>
       <ImageViewerVue
-        :image-src="`https://www.art-spb.ru/upload/good_image/14156.jpg`"
+        :is_loading="is_loading"
+        :image-src="`http://localhost:5000/${painting?.img}`"
       />
     </template>
     <div class="grid grid-col gap-12">
@@ -111,6 +112,7 @@ import ImageViewerVue from "@/components/ImageViewer.vue";
 import SecondaryButtonVue from "@/components/SecondaryButton.vue";
 
 import HidingBlockVue from "@/components/HidingBlock.vue";
+import axios from "axios";
 
 export default {
   components: {
@@ -118,6 +120,27 @@ export default {
     ImageViewerVue,
     SecondaryButtonVue,
     HidingBlockVue,
+  },
+  data() {
+    return {
+      painting: null,
+      is_loading: false,
+    };
+  },
+  mounted() {
+    if (!this.painting) {
+      axios
+        .get(
+          process.env.VUE_APP_API_URL +
+            "api/painting/" +
+            this.$route.params.id.replace(/\D/g, "")
+        )
+        .then((response) => {
+          console.log(response.data);
+          this.painting = response.data;
+          this.is_loading = false;
+        });
+    }
   },
 };
 </script>

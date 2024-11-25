@@ -58,18 +58,6 @@
         </div>
       </div>
     </div>
-    <div class="h-[200px] w-[200px]">
-      <img
-        v-if="data"
-        :src="`http://localhost:5000/${data[0].img}`"
-        alt=""
-        class="transform transition h-full w-full duration-300 hover:scale-110"
-      />
-    </div>
-    <ImageViewerVue
-      v-if="data"
-      :image-src="`http://localhost:5000/${data[0].img}`"
-    />
   </AppLayout>
 </template>
 
@@ -79,7 +67,7 @@ import InfoBlock from "@/components/InfoBlock.vue";
 import SecondaryButton from "@/components/SecondaryButton.vue";
 import ScrollGallery from "@/components/ScrollGallery.vue";
 import Banner from "@/components/Banner.vue";
-import ImageViewerVue from "@/components/ImageViewer.vue";
+
 import axios from "axios";
 
 export default {
@@ -89,20 +77,6 @@ export default {
     SecondaryButton,
     ScrollGallery,
     Banner,
-    ImageViewerVue,
-  },
-  data() {
-    return {
-      data: null,
-    };
-  },
-  mounted() {
-    console.log(process.env);
-
-    axios.get(process.env.VUE_APP_API_URL + "api/painting").then((response) => {
-      console.log(response.data);
-      this.data = response.data;
-    });
   },
 };
 </script>

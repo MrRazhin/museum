@@ -1,5 +1,6 @@
 <template>
   <div
+    v-if="!is_loading"
     class="relative mx-auto transition-all duration-500"
     :class="{ 'max-w-full': isExpanded, 'max-w-xl': !isExpanded }"
   >
@@ -83,11 +84,52 @@
       </button>
     </div>
   </div>
+  <div v-else class="mx-auto w-[200px] h-[200px]">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+      <circle
+        fill="none"
+        stroke-opacity="1"
+        stroke="#FECD8C"
+        stroke-width=".5"
+        cx="100"
+        cy="100"
+        r="0"
+      >
+        <animate
+          attributeName="r"
+          calcMode="spline"
+          dur="2"
+          values="1;80"
+          keyTimes="0;1"
+          keySplines="0 .2 .5 1"
+          repeatCount="indefinite"
+        ></animate>
+        <animate
+          attributeName="stroke-width"
+          calcMode="spline"
+          dur="2"
+          values="0;25"
+          keyTimes="0;1"
+          keySplines="0 .2 .5 1"
+          repeatCount="indefinite"
+        ></animate>
+        <animate
+          attributeName="stroke-opacity"
+          calcMode="spline"
+          dur="2"
+          values="1;0"
+          keyTimes="0;1"
+          keySplines="0 .2 .5 1"
+          repeatCount="indefinite"
+        ></animate>
+      </circle>
+    </svg>
+  </div>
 </template>
 
 <script>
 export default {
-  props: ["imageSrc"],
+  props: ["imageSrc", "is_loading"],
   data() {
     return {
       isExpanded: false,
