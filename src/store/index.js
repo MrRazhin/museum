@@ -14,6 +14,7 @@ export default createStore({
     },
     clearUser(state) {
       state.user = { id: null, name: "", email: "" };
+      localStorage.setItem("token", null);
     },
   },
   actions: {

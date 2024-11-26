@@ -5,8 +5,17 @@ class TicketController {
   // Создание нового билета
   async create(req, res, next) {
     try {
-      const { userId, paintingId, visitDate, purchaseDate } = req.body;
-      const ticket = await Ticket.create({ userId, paintingId, visitDate, purchaseDate });
+      const { userId, visitDate, ticketTypeId, id } = req.body;
+
+      const ticket = await Ticket.create({
+        userId,
+        visitDate,
+        purchaseDate: new Date(),
+        id,
+        ticketTypeId,
+        ticketNumber: String(Math.floor(100000 + Math.random() * 900000)),
+      });
+
       return res.json(ticket);
     } catch (e) {
       next(ApiError.badRequest(e.message));
